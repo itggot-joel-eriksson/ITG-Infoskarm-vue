@@ -4,26 +4,12 @@
 		<div class="departure__direction">{{ departures[0].direction.short }}</div>
 		<div class="departure__track">{{ departures[0].track }}</div>
 		<div class="departure__next">{{ departures[0].departure.wait.minutes <= 0 ? now : departures[0].departure.wait.minutes }}</div>
-		<div class="departure__thereafter">{{ departures[1].departure.wait.minutes <= 0 ? now : departures[1].departure.wait.minutes }}</div>
+		<div class="departure__thereafter" v-if="departures.length > 1">{{ departures[1].departure.wait.minutes <= 0 ? now : departures[1].departure.wait.minutes }}</div>
+		<div class="departure__thereafter departure__thereafter--none" v-else></div>
 	</div>
 </template>
 
 <script>
-	import firebase from "firebase/app"
-	import "firebase/database"
-
-	const config = {
-		apiKey: "AIzaSyCvbaplVa5dSNxHzTSJd1y1iiKxCmceLqY",
-		authDomain: "vasttrafik-api-159cc.firebaseapp.com",
-		databaseURL: "https://vasttrafik-api-159cc.firebaseio.com"
-	}
-
-	firebase.initializeApp(config, "realtime-departure")
-
-	const firebaseApp = firebase.app("realtime-departure")
-
-	const departuresRef = firebaseApp.database().ref("vasttrafik/departures")
-
 	export default {
 		name: "realtimeDeparture",
 		props: [
@@ -69,4 +55,8 @@
 		padding: 5px
 		text-align: center
 		max-width: 50px
+
+	.departure__thereafter--none::before
+		content: "-"
+		vertical-align: middle
 </style>

@@ -6,7 +6,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
-    filename: 'build.js'
+    filename: process.env.NODE_ENV === 'production' ? 'build.js' : 'build.dev.js'
   },
   module: {
     rules: [

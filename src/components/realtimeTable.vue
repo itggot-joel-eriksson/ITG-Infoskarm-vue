@@ -2,7 +2,7 @@
 	<article class="stop">
 		<h1 v-show="stop.stop" v-if="stop.stop" class="stop__name animated" :class="[ { fadeOut: !stop.stop }, { fadeIn: stop.stop } ]">{{ stop.stop.shortName }}</h1>
 
-		<div class="itg-loader itg-loader--stop animated" v-show="!stop.stop" :class="[ { fadeOut: stop.stop }, { fadeIn: !stop.stop } ]"></div>
+		<div class="itg-loader itg-loader--stop animated" v-show="!stop.departures" :class="[ { fadeOut: stop.departures }, { fadeIn: !stop.departures } ]"></div>
 
 		<div class="departure-board animated" v-show="stop.departures" :class="[ { fadeOut: !stop.stop }, { fadeIn: stop.stop } ]">
 			<div class="departure-board__header">
@@ -79,10 +79,11 @@
 </script>
 
 <style lang="sass">
-$stripe-color: #616161
+$card-bg-color: rgba(66, 66, 66, 1)
+$stripe-color: rgba(97, 97, 97, 0.8)
 
 .stop
-	background-color: #424242
+	background-color: $card-bg-color
 	padding-top: 10px
 	margin: 10px 10px 0 10px
 	color: #FFFFFF
@@ -98,50 +99,54 @@ $stripe-color: #616161
 .stop .departure:last-child
 	margin-bottom: 0
 
-.departure-board__departures > .even:first-child > .departure:nth-child(even)
-	background-color: $stripe-color
+.departure-board__departures
+	background-color: darken($card-bg-color, 3%)
+	box-shadow: inset 0 1px 1.5px 0 rgba(0, 0, 0, 0.12)
 
-.departure-board__departures > .odd:first-child > .departure:nth-child(even)
-	background-color: $stripe-color
+	.even:first-child > .departure:nth-child(even)
+		background-color: $stripe-color
 
-.departure-board__departures > .even + .even > .departure:nth-child(even)
-	background-color: $stripe-color
+	.odd:first-child > .departure:nth-child(even)
+		background-color: $stripe-color
 
-.departure-board__departures > .even + .odd > .departure:nth-child(even)
-	background-color: $stripe-color
+	.even + .even > .departure:nth-child(even)
+		background-color: $stripe-color
 
-.departure-board__departures > .odd + .even > .departure:nth-child(odd)
-	background-color: $stripe-color
+	.even + .odd > .departure:nth-child(even)
+		background-color: $stripe-color
 
-.departure-board__departures > .odd + .even + .one > .departure
-	background-color: $stripe-color
+	.odd + .even > .departure:nth-child(odd)
+		background-color: $stripe-color
 
-.departure-board__departures > .one + .even > .departure:nth-child(even)
-	background-color: $stripe-color
+	.odd + .even + .one > .departure
+		background-color: $stripe-color
 
-.departure-board__departures > .one + .even > .departure:nth-child(odd)
-	background-color: inherit
+	.one + .even > .departure:nth-child(even)
+		background-color: $stripe-color
 
-.departure-board__departures > .even + .odd + .one > .departure:nth-child(odd)
-	background-color: $stripe-color
+	.one + .even > .departure:nth-child(odd)
+		background-color: inherit
 
-.departure-board__departures > .one + .one > .departure:nth-child(odd)
-	background-color: initial !important
+	.even + .odd + .one > .departure:nth-child(odd)
+		background-color: $stripe-color
 
-.departure-board__departures > .one + .one + .even > .departure:nth-child(odd)
-	background-color: $stripe-color
+	.one + .one > .departure:nth-child(odd)
+		background-color: initial !important
 
-.departure-board__departures > .one + .one + .even > .departure:nth-child(even)
-	background-color: initial !important
+	.one + .one + .even > .departure:nth-child(odd)
+		background-color: $stripe-color
 
-.departure-board__departures > .one > .departure:nth-child(even)
-	background-color: $stripe-color
+	.one + .one + .even > .departure:nth-child(even)
+		background-color: initial !important
 
-.departure-board__departures > .even + .one > .departure
-	background-color: initial !important
+	.one > .departure:nth-child(even)
+		background-color: $stripe-color
 
-.departure-board__departures > .odd + .even + .one > .departure
-	background-color: $stripe-color !important
+	.even + .one > .departure
+		background-color: initial !important
+
+	.odd + .even + .one > .departure
+		background-color: $stripe-color !important
 	
 .stop__name
 	font-size: 2rem
@@ -162,7 +167,7 @@ $stripe-color: #616161
 	align-self: center
 
 	&::before
-		background-image: url(../assets/vt-blue.svg)
+		background-image: url(/img/vasttrafik-logo.svg)
 		background-repeat: no-repeat
 		background-size: 30px
 		background-position: center
