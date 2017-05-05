@@ -3,6 +3,6 @@ node_js:
   - "7"
 install:
   - yarn
-  - yarn global install firebase-tools
+  - yarn global add firebase-tools
 script:
   - yarn build && firebase deploy --token "$FIREBASE_TOKEN"
