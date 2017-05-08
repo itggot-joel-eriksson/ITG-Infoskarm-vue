@@ -13,8 +13,10 @@
 				<div class="departure__thereafter">{{ thereafter }}</div>
 			</div>
 			<div class="departure-board__departures">
-				<div class="departure-board__line-departures animated" v-for="(lines, lineKey, i) in stop.departures" :key="lineKey" :class="{even: Object.keys(lines).length.isEven(), odd: Object.keys(lines).length.isOdd() && Object.keys(lines).length !== 1, one: Object.keys(lines).length === 1}">
-					<realtime-departure v-for="(departures, departureKey, j) in lines" :key="departureKey" :departures="departures"></realtime-departure(>
+				<div class="departure-board__line-departures animated">
+					<!--<pre>{{ JSON.stringify(lines) }}</pre>-->
+					<realtime-departure v-for="(departure, departureKey, i) in departures" :key="departureKey" :departure="departure[0]" :thereafter="departure[1]"></realtime-departure>
+					<!--<realtime-departure v-for="(departures, departureKey, j) in lines" :key="departureKey" :departures="departures" :count="count"></realtime-departure>-->
 				</div>
 			</div>
 		</div>
@@ -23,6 +25,8 @@
 
 <script>
 	import realtimeDeparture from "./realtimeDeparture.vue"
+
+	import _ from "lodash"
 
 	import firebase from "firebase/app"
 	import "firebase/database"
@@ -58,7 +62,8 @@
 				destination: "Destination",
 				track: "Läge",
 				next: "Nästa",
-				thereafter: "Efter"
+				thereafter: "Efter",
+				count: 0,
 			}
 		},
 		firebase() {
@@ -72,9 +77,31 @@
 				}
 			}
 		},
+		computed: {
+			departures() {
+				return this.parseDepartures(this.stop.departures)
+			},
+		},
+		methods: {
+			parseDepartures(departures) {
+				let result = []
+
+				_.map(_.flatMap(departures), (x) => {
+					_.forEach(x, (value, key) => {
+						result.push([ value[0], value[1] ])
+					})
+				})
+
+				// _.map(_.flatMap(departures), (x) => {
+				// 	result.push(_.flatMap(x))
+				// })
+
+				return result
+			},
+		},
 		components: {
-			realtimeDeparture: realtimeDeparture
-		}
+			realtimeDeparture: realtimeDeparture,
+		},
 	}
 </script>
 
@@ -99,54 +126,66 @@ $stripe-color: rgba(97, 97, 97, 0.8)
 .stop .departure:last-child
 	margin-bottom: 0
 
+.departure-board__departures > .departure-board__line-departures:nth-child(even)
+	background-color: $stripe-color
+
 .departure-board__departures
 	background-color: darken($card-bg-color, 3%)
 	box-shadow: inset 0 1px 1.5px 0 rgba(0, 0, 0, 0.12)
 
-	.even:first-child > .departure:nth-child(even)
+	.departure:nth-child(even)
 		background-color: $stripe-color
 
-	.odd:first-child > .departure:nth-child(even)
-		background-color: $stripe-color
+	// .even:first-child > .departure:nth-child(even)
+	// 	background-color: $stripe-color
 
-	.even + .even > .departure:nth-child(even)
-		background-color: $stripe-color
+	// .odd:first-child > .departure:nth-child(even)
+	// 	background-color: $stripe-color
 
-	.even + .odd > .departure:nth-child(even)
-		background-color: $stripe-color
+	// .even + .even > .departure:nth-child(even)
+	// 	background-color: $stripe-color
 
-	.odd + .even > .departure:nth-child(odd)
-		background-color: $stripe-color
+	// .even + .odd > .departure:nth-child(even)
+	// 	background-color: $stripe-color
 
-	.odd + .even + .one > .departure
-		background-color: $stripe-color
+	// .odd + .even + .even > .departure:nth-child(odd)
+	// 	background-color: $stripe-color
 
-	.one + .even > .departure:nth-child(even)
-		background-color: $stripe-color
+	// .odd + .even + .even > .departure:nth-child(even)
+	// 	background-color: initial !important
 
-	.one + .even > .departure:nth-child(odd)
-		background-color: inherit
+	// .odd + .even > .departure:nth-child(odd)
+	// 	background-color: $stripe-color
 
-	.even + .odd + .one > .departure:nth-child(odd)
-		background-color: $stripe-color
+	// .odd + .even + .one > .departure
+	// 	background-color: $stripe-color
 
-	.one + .one > .departure:nth-child(odd)
-		background-color: initial !important
+	// .one + .even > .departure:nth-child(even)
+	// 	background-color: $stripe-color
 
-	.one + .one + .even > .departure:nth-child(odd)
-		background-color: $stripe-color
+	// .one + .even > .departure:nth-child(odd)
+	// 	background-color: initial !important
 
-	.one + .one + .even > .departure:nth-child(even)
-		background-color: initial !important
+	// .even + .odd + .one > .departure:nth-child(odd)
+	// 	background-color: $stripe-color
 
-	.one > .departure:nth-child(even)
-		background-color: $stripe-color
+	// .one + .one > .departure:nth-child(odd)
+	// 	background-color: initial !important
 
-	.even + .one > .departure
-		background-color: initial !important
+	// .one + .one + .even > .departure:nth-child(odd)
+	// 	background-color: $stripe-color
 
-	.odd + .even + .one > .departure
-		background-color: $stripe-color !important
+	// .one + .one + .even > .departure:nth-child(even)
+	// 	background-color: initial !important
+
+	// .one > .departure:nth-child(even)
+	// 	background-color: $stripe-color
+
+	// .even + .one > .departure
+	// 	background-color: initial !important
+
+	// .odd + .even + .one > .departure
+	// 	background-color: $stripe-color !important
 	
 .stop__name
 	font-size: 2rem

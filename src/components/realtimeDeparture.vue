@@ -1,10 +1,10 @@
 <template>
 	<div class="departure">
-		<div class="departure__line" :style="[ { color: departures[0].colors.foreground }, { backgroundColor: departures[0].colors.background } ]">{{ departures[0].line.shortName }}</div>
-		<div class="departure__direction">{{ departures[0].direction.short }}</div>
-		<div class="departure__track">{{ departures[0].track }}</div>
-		<div class="departure__next">{{ departures[0].departure.wait.minutes <= 0 ? now : departures[0].departure.wait.minutes }}</div>
-		<div class="departure__thereafter" v-if="departures.length > 1">{{ departures[1].departure.wait.minutes <= 0 ? now : departures[1].departure.wait.minutes }}</div>
+		<div class="departure__line" :style="[ { color: departure.colors.foreground }, { backgroundColor: departure.colors.background } ]">{{ departure.line.shortName }}</div>
+		<div class="departure__direction">{{ departure.direction.short }}</div>
+		<div class="departure__track">{{ departure.track }}</div>
+		<div class="departure__next">{{ departure.departure.wait.minutes <= 0 ? now : departure.departure.wait.minutes }}</div>
+		<div class="departure__thereafter" v-if="thereafter">{{ thereafter.departure.wait.minutes <= 0 ? now : thereafter.departure.wait.minutes }}</div>
 		<div class="departure__thereafter departure__thereafter--none" v-else></div>
 	</div>
 </template>
@@ -13,11 +13,14 @@
 	export default {
 		name: "realtimeDeparture",
 		props: [
-			"departures",
+			"departure",
+			"thereafter",
 		],
 		data() {
 			return {
 				now: "nu",
+				defaultForegroundColor: "#FFFFFF",
+				defaultBackgroundColor: "#000000",
 			}
 		},
 	}
