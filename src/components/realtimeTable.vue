@@ -14,9 +14,7 @@
 			</div>
 			<div class="departure-board__departures">
 				<div class="departure-board__line-departures animated">
-					<!--<pre>{{ JSON.stringify(lines) }}</pre>-->
 					<realtime-departure v-for="(departure, departureKey, i) in departures" :key="departureKey" :departure="departure[0]" :thereafter="departure[1]"></realtime-departure>
-					<!--<realtime-departure v-for="(departures, departureKey, j) in lines" :key="departureKey" :departures="departures" :count="count"></realtime-departure>-->
 				</div>
 			</div>
 		</div>
@@ -42,14 +40,6 @@
 	const firebaseApp = firebase.app("realtime-table")
 
 	const departuresRef = firebaseApp.database().ref("/vasttrafik/departures")
-
-	Number.prototype.isEven = function() {
-		return this % 2 === 0
-	}
-
-	Number.prototype.isOdd = function() {
-		return !this.isEven()
-	}
 
 	export default {
 		name: "realtimeTable",
@@ -87,14 +77,20 @@
 				let result = []
 
 				_.map(_.flatMap(departures), (x) => {
-					_.forEach(x, (value, key) => {
-						result.push([ value[0], value[1] ])
+					const departure = _.sortBy(x, ["line.shortName", "departure.wait.minutes"])
+
+					_.forEach(departure, (value, key) => {
+						if (value.length > 1) {
+							if (value[0].departure.wait.milliseconds > value[1].departure.wait.milliseconds) {
+								result.push([ value[1], value[0] ])
+							} else {
+								result.push([ value[0], value[1] ])
+							}
+						} else {
+							result.push([ value[0] ])
+						}
 					})
 				})
-
-				// _.map(_.flatMap(departures), (x) => {
-				// 	result.push(_.flatMap(x))
-				// })
 
 				return result
 			},
