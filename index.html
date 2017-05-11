@@ -9,38 +9,21 @@
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,700">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 
-		<link rel="icon" href="/img/icon.png">
-		<link rel="shortcut icon" href="/img/icon.png">
+		<meta name="theme-color" content="#424242">
+		<meta name="msapplication-TileColor" content="#424242">
+		<meta name="msapplication-TileImage" content="/img/favicons/mstile-144x144.png">
+		<meta name="msapplication-config" content="/img/favicons/browserconfig.xml">
+		<link rel="apple-touch-icon" sizes="180x180" href="/img/favicons/apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="/img/favicons/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="194x194" href="/img/favicons/favicon-194x194.png">
+		<link rel="icon" type="image/png" sizes="192x192" href="/img/favicons/android-chrome-192x192.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/img/favicons/favicon-16x16.png">
+		<link rel="manifest" href="/img/favicons/manifest.json">
+		<link rel="mask-icon" href="/img/favicons/safari-pinned-tab.svg" color="#424242">
+		<link rel="shortcut icon" href="/img/favicons/favicon.ico">
 	</head>
 	<body>
 		<div id="app"></div>
 		<script src="/dist/build.dev.js" defer></script>
-		
-		<script type="text/javascript">
-			function createKeenWebAutoCollector() {
-				window.keenWebAutoCollector = window.KeenWebAutoCollector.create({
-					projectId: "591174060935ce40a59fb454",
-					writeKey: "E5E00B381C95084EA258948D5718D6EE5FE231EA38D470BA4C77C973C093227CF59B0605EBFBC1FA6CBE4E4ED973D932A41E80C4C3C231B9097784C2F076492A4A77B1CAD96846BE482C57C017629F8273654103DCB7054828AC99B27DDF135C",
-					onloadCallbacks:window.keenWebAutoCollector.onloadCallbacks
-				}), window.keenWebAutoCollector.loaded() 
-			}
-
-			function initKeenWebAutoCollector() {
-				window.keenWebAutoCollector.domReady() ? window.createKeenWebAutoCollector() : document.addEventListener("readystatechange", function() {
-					window.keenWebAutoCollector.domReady() && window.createKeenWebAutoCollector()
-				})
-			}
-
-			window.keenWebAutoCollector = {
-				onloadCallbacks: [],
-				onload: function(a) {
-					this.onloadCallbacks.push(a)
-				},
-				domReady: function() {
-					return ["ready", "complete"].indexOf(document.readyState) > -1
-				}
-			};
-		</script>
-		<script async type="text/javascript" src="https://d26b395fwzu5fz.cloudfront.net/keen-web-autocollector-1.0.8.min.js" onload="initKeenWebAutoCollector()"></script>
 	</body>
 </html>

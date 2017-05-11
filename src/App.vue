@@ -17,7 +17,7 @@
 			<div class="support-feedback">
 				<h1 class="support-feedback__title">Support och feedback</h1>
 				<p class="support-feedback__body">
-					<a href="mailto:joel.eriksson3@itggot.se?subject=ITG-Infoskarm">joel.eriksson3@itggot.se</a>
+					<a href="mailto:support@itggot.info">support@itggot.info</a>
 				</p>
 			</div>
 		</div>
@@ -72,7 +72,7 @@ $white: rgba(255, 255, 255, 1)
 $card-bg-color: rgba(66, 66, 66, 1)
 
 \:root
-	font-size: 14px
+	font-size: 16px
 	color: $white
 
 html, body
@@ -115,8 +115,11 @@ body > #app
 	align-items: stretch
 	text-align: center
 
-.support-feedback__title, .support-feedback__body
-	margin: 0
+	.support-feedback__title, .support-feedback__body
+		margin: 0
+	
+	.support-feedback__body
+		font-size: 1.2rem
 
 .itg-loader
 	position: relative
@@ -176,7 +179,7 @@ footer
 	100%
 		transform: rotate(359deg)
 
-@media screen and (max-device-width: 999px)
+@media screen and (max-width: 999px)
 	#app
 		flex-wrap: wrap
 
@@ -187,7 +190,7 @@ footer
 	footer
 		display: none
 
-@media screen and (max-device-height: 800px)
+@media screen and (max-height: 800px)
 	footer
 		display: none
 </style>
