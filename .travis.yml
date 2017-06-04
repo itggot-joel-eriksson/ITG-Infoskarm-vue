@@ -6,3 +6,4 @@ install:
   - yarn global add firebase-tools
 script:
   - yarn build && firebase deploy --token "$FIREBASE_TOKEN"
+  - node echo-version.js | firebase database:set --token "$FIREBASE_TOKEN" -y /versions/itg-infoskarm-vue
