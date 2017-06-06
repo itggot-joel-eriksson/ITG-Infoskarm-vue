@@ -64,7 +64,7 @@ export default {
 	firebase() {
 		return {
 			schoolmeal: {
-				source: schoolmealsRef.child(this.school).child(this.currentMoment.format("YYYY")).child(this.currentMoment.format("W")),
+				source: schoolmealsRef.child(this.school).child("latest"),
 				asObject: true,
 			}
 		}
@@ -92,7 +92,7 @@ $card-bg-color: rgba(66, 66, 66, 1)
 	overflow: hidden
 
 .schoolmeal__title
-	font-size: 2rem;
+	font-size: 2rem
 	text-align: center
 	margin: 0
 	padding: 10px 10px 0 10px
