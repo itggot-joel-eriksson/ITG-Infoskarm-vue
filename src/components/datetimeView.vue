@@ -22,7 +22,11 @@
 			datetimeMoment() {
 				setInterval(() => {
 					this.datetime = moment().locale("sv")
-				})
+
+					if (this.datetime.format("HH:mm:ss") === "00:00:00") {
+						window.location.reload()
+					}
+				}, 250)
 			}
 		}
 	}
