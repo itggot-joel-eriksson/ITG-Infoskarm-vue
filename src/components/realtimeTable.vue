@@ -2,9 +2,9 @@
 	<article class="stop">
 		<h1 v-show="stop.stop" v-if="stop.stop" class="stop__name animated" :class="[ { fadeOut: !stop.stop }, { fadeIn: stop.stop } ]">{{ stop.stop.shortName }}</h1>
 
-		<div class="itg-loader itg-loader--stop animated" v-show="!stop.departures" :class="[ { fadeOut: stop.departures }, { fadeIn: !stop.departures } ]"></div>
+		<div class="itg-loader itg-loader--stop animated" v-show="!stop.stop" :class="[ { fadeOut: stop.stop }, { fadeIn: !stop.stop } ]"></div>
 
-		<div class="departure-board animated" v-show="stop.departures" :class="[ { fadeOut: !stop.stop }, { fadeIn: stop.stop } ]">
+		<div class="departure-board animated" v-show="stop.stop" :class="[ { fadeOut: !stop.stop }, { fadeIn: stop.stop } ]">
 			<div class="departure-board__header">
 				<div class="departure__line">{{ line }}</div>
 				<div class="departure__direction">{{ destination }}</div>
@@ -13,8 +13,11 @@
 				<div class="departure__thereafter">{{ thereafter }}</div>
 			</div>
 			<div class="departure-board__departures">
-				<div class="departure-board__line-departures animated">
+				<div class="departure-board__line-departures animated fadeIn" v-if="stop.departures">
 					<realtime-departure v-for="(departure, departureKey, i) in departures" :key="departureKey" :departure="departure[0]" :thereafter="departure[1]"></realtime-departure>
+				</div>
+				<div class="departure-board__line-departures animated fadeIn" v-else>
+					<realtime-departure :departure="noDepaturesFound" :thereafter="null"></realtime-departure>
 				</div>
 			</div>
 		</div>
@@ -48,12 +51,31 @@
 		],
 		data() {
 			return {
-				line: "",
+				line: "Linje",
 				destination: "Destination",
 				track: "Läge",
 				next: "Nästa",
 				thereafter: "Efter",
 				count: 0,
+				noDepaturesFound: {
+					colors: {
+						background: "#F44336",
+						foreground: "#FFFFFF",
+					},
+					departure: {
+						wait: {
+							minutes: "-",
+						},
+					},
+					direction: {
+						long: "Inga avgångar hittades",
+						short: "Inga avgångar hittades",
+					},
+					line: {
+						shortName: "-",
+					},
+					track: "-",
+				},
 			}
 		},
 		firebase() {
@@ -131,57 +153,6 @@ $stripe-color: rgba(97, 97, 97, 0.8)
 
 	.departure:nth-child(even)
 		background-color: $stripe-color
-
-	// .even:first-child > .departure:nth-child(even)
-	// 	background-color: $stripe-color
-
-	// .odd:first-child > .departure:nth-child(even)
-	// 	background-color: $stripe-color
-
-	// .even + .even > .departure:nth-child(even)
-	// 	background-color: $stripe-color
-
-	// .even + .odd > .departure:nth-child(even)
-	// 	background-color: $stripe-color
-
-	// .odd + .even + .even > .departure:nth-child(odd)
-	// 	background-color: $stripe-color
-
-	// .odd + .even + .even > .departure:nth-child(even)
-	// 	background-color: initial !important
-
-	// .odd + .even > .departure:nth-child(odd)
-	// 	background-color: $stripe-color
-
-	// .odd + .even + .one > .departure
-	// 	background-color: $stripe-color
-
-	// .one + .even > .departure:nth-child(even)
-	// 	background-color: $stripe-color
-
-	// .one + .even > .departure:nth-child(odd)
-	// 	background-color: initial !important
-
-	// .even + .odd + .one > .departure:nth-child(odd)
-	// 	background-color: $stripe-color
-
-	// .one + .one > .departure:nth-child(odd)
-	// 	background-color: initial !important
-
-	// .one + .one + .even > .departure:nth-child(odd)
-	// 	background-color: $stripe-color
-
-	// .one + .one + .even > .departure:nth-child(even)
-	// 	background-color: initial !important
-
-	// .one > .departure:nth-child(even)
-	// 	background-color: $stripe-color
-
-	// .even + .one > .departure
-	// 	background-color: initial !important
-
-	// .odd + .even + .one > .departure
-	// 	background-color: $stripe-color !important
 	
 .stop__name
 	font-size: 2rem
