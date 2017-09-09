@@ -6,8 +6,7 @@
 				<p class="meal meal--message">{{ messages.doesNotHaveDayProperty }}</p>
 			</span>
 			<span v-else-if="day.hasOwnProperty('meals')">
-				<p class="meal" v-for="meal in day.meals">
-					
+				<p class="meal" v-for="(meal, mealKey, i) in day.meals" :key="mealKey">
 					{{ meal.value }}
 				</p>
 			</span>

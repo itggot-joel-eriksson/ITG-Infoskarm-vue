@@ -5,6 +5,7 @@
 		</div>
 		<div class="column">
 			<realtime-table stop-id="kapellplatsen-goteborg"></realtime-table>
+			<campaign-itgappen :showuntil="'2017-09-08 23:59:59'"></campaign-itgappen>
 		</div>
 		<div class="column">
 			<realtime-table stop-id="chalmers-tvargata-goteborg"></realtime-table>
@@ -14,50 +15,33 @@
 		<div class="column">
 			<datetime-view></datetime-view>
 			<schoolmeal-view school="it-gymnasiet-goteborg"></schoolmeal-view>
-			<div class="support-feedback">
-				<h1 class="support-feedback__title">Support och feedback</h1>
-				<p class="support-feedback__body">
-					<a href="mailto:support@itggot.info">support@itggot.info</a>
-				</p>
-			</div>
+			<support-feedback :email="'support@itggot.info'"></support-feedback>
 		</div>
 
-		<footer>
+		<footer class="app__footer">
 			<img class="logo" src="/img/itg-logo.svg">
-			{{ fullscreen }}
-			<p class="enter-fullscreen animated" :class="[ { fadeOut: isFullscreen }, { fadeIn: !isFullscreen } ]">{{ fullscreenMessage }}</p>
 		</footer>
 	</main>
 </template>
 
 <script>
-import screenfull from "screenfull"
-
 import cameraView from "./components/cameraView.vue"
 import datetimeView from "./components/datetimeView.vue"
 import realtimeTable from "./components/realtimeTable.vue"
 import schoolmealView from "./components/schoolmealView.vue"
+import supportFeedback from "./components/supportFeedback.vue"
+
+import campaignItgappen from "./components/campaigns/itgappen.vue"
 
 export default {
 	name: "app",
-	data() {
-		return {
-			isFullscreen: screenfull.isFullscreen,
-			fullscreenMessage: "Tryck på [Enter] för att visa ITG-Infoskärm i fullskärm",
-		}
-	},
-	computed: {
-		fullscreen() {
-			screenfull.onchange(() => {
-				this.isFullscreen = screenfull.isFullscreen
-			})
-		}
-	},
 	components: {
 		cameraView: cameraView,
 		datetimeView: datetimeView,
 		realtimeTable: realtimeTable,
 		schoolmealView: schoolmealView,
+		supportFeedback: supportFeedback,
+		campaignItgappen: campaignItgappen,
 	}
 }
 </script>
@@ -100,27 +84,6 @@ body > #app
 	flex: 0 0 25%
 	max-width: 25%
 
-.support-feedback
-	background-color: rgba(66, 66, 66, 1)
-	padding: 10px
-	margin: 10px 10px 0 10px
-	color: #FFFFFF
-	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 5px 0 rgba(0, 0, 0, 0.23)
-	border-radius: 4px
-	box-sizing: border-box
-	overflow: hidden
-	display: flex
-	flex-direction: column
-	justify-content: center
-	align-items: stretch
-	text-align: center
-
-	.support-feedback__title, .support-feedback__body
-		margin: 0
-	
-	.support-feedback__body
-		font-size: 1.2rem
-
 .itg-loader
 	position: relative
 	height: 0
@@ -151,7 +114,7 @@ body > #app
 		animation: itg-spin 1s linear infinite
 		z-index: 0
 
-footer
+.app__footer
 	position: fixed
 	right: 0
 	bottom: 0
@@ -165,11 +128,6 @@ footer
 	.logo
 		padding: 5px
 		width: 75px
-
-	.enter-fullscreen
-		color: lighten($bg-color, 15%)
-		margin-right: 5px
-		text-align: right
 
 @keyframes itg-spin
 	0%
@@ -187,7 +145,7 @@ footer
 		flex: 1 0 100%
 		max-width: unset
 
-	footer
+	.app__footer
 		display: none
 
 @media screen and (max-height: 800px)

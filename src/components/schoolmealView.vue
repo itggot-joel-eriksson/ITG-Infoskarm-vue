@@ -14,7 +14,7 @@
 				<schoolmeal-day :current-day="day" :display-on-days="['sunday']"></schoolmeal-day>
 			</section>
 			<section class="schoolmeal__bulletins" v-if="schoolmeal.hasOwnProperty('bulletins')">
-				<p class="schoolmeal__bulletins-item" v-for="bulletin in schoolmeal.bulletins">{{ bulletin.text }}</p>
+				<p class="schoolmeal__bulletins-item" v-for="(bulletin, bulletinKey, i) in schoolmeal.bulletins" :key="bulletinKey">{{ bulletin.text }}</p>
 			</section>
 		</div>
 		<div class="itg-loader itg-loader--schoolmeal animated" v-else :class="[ { fadeOut: schoolmeal && schoolmeal.hasOwnProperty('days') }, { fadeIn: !schoolmeal } ]"></div>
@@ -105,7 +105,7 @@ $card-bg-color: rgba(66, 66, 66, 1)
 
 .schoolmeal__bulletins
 	padding: 7px
-	background-color: darken($card-bg-color, 3%)
+	background-color: darken($card-bg-color, 5%)
 	box-shadow: inset 0 1px 1.5px 0 rgba(0, 0, 0, 0.12)
 
 	.schoolmeal__bulletins-item

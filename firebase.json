@@ -1,11 +1,23 @@
 {
-  "hosting": {
-    "public": "dist",
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
-    ]
-  }
+	"hosting": {
+		"public": "dist",
+		"redirects": [
+			{
+				"source": "/itgappen-ios",
+				"destination": "https://itunes.apple.com/se/app/itg-appen/id882080060",
+				"type": 302
+			},
+			{
+				"source": "/itgappen-android",
+				"destination": "https://play.google.com/store/apps/details?id=com.itgappen.itgappen",
+				"type": 302
+			}
+		],
+		"rewrites": [
+			{
+				"source": "**",
+				"destination": "/index.html"
+			}
+		]
+	}
 }

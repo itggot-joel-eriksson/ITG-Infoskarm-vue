@@ -17,15 +17,19 @@
 					<realtime-departure v-for="(departure, departureKey, i) in departures" :key="departureKey" :departure="departure[0]" :thereafter="departure[1]"></realtime-departure>
 				</div>
 				<div class="departure-board__line-departures animated fadeIn" v-else>
-					<realtime-departure :departure="noDepaturesFound" :thereafter="null"></realtime-departure>
+					<realtime-departure :departure="noDepaturesFound"></realtime-departure>
 				</div>
 			</div>
+			<!--<div class="departure-board__messages animated" v-if="stop.stop.hasOwnProperty('messages')" :class="[ { zoomOutUp: !stop.stop.hasOwnProperty('messages') }, { zoomInDown: stop.stop.hasOwnProperty('messages') } ]">
+				<realtime-table-message v-for="(message, messageKey, i) in stop.stop.messages" :key="messageKey" :message="message"></realtime-table-message>
+			</div>-->
 		</div>
 	</article>
 </template>
 
 <script>
 	import realtimeDeparture from "./realtimeDeparture.vue"
+	import realtimeTableMessage from "./realtimeTableMessage.vue"
 
 	import _ from "lodash"
 
@@ -119,6 +123,7 @@
 		},
 		components: {
 			realtimeDeparture: realtimeDeparture,
+			realtimeTableMessage: realtimeTableMessage,
 		},
 	}
 </script>
