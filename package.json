@@ -1,8 +1,8 @@
 {
   "name": "itg-infoskarm-vue",
   "description": "ITG-Infoskarm made in Vue.js",
-  "version": "1.1.0",
-  "author": "Joel Eriksson <joel.eriksson@protonmail.com>",
+  "version": "1.1.1",
+  "author": "Joel Ericsson <joel.eriksson@protonmail.com>",
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
