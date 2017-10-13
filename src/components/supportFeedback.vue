@@ -5,7 +5,7 @@
 			<a :href="emailHref">{{ email }}</a>
 		</p>
 		<div class="support-feedback__footer" v-if="status && status.up === false">
-			<p>ITG-Infoskarm-API har legat nere i {{ moment(status.since).locale("sv").fromNow(true) }}.</p>
+			<p>ITG-Infoskarm-API har legat nere i {{ moment(moment(status.since).format("YYYY-MM-DD[T]HH:mm:ss[+0400]")).locale("sv").fromNow(true) }}.</p>
 		</div>
 	</div>
 </template>
