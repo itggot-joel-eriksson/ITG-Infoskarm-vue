@@ -3,7 +3,7 @@
 		<h1 class="schoolmeal__title">{{ title }}</h1>
 		
 		{{ dayUpdater }}
-		<div class="animated" v-if="schoolmeal && schoolmeal.hasOwnProperty('days')" :class="[ { fadeOut: !schoolmeal }, { fadeIn: schoolmeal } ]">
+		<article class="animated" v-if="schoolmeal && schoolmeal.hasOwnProperty('days')" :class="[ { fadeOut: !schoolmeal }, { fadeIn: schoolmeal } ]">
 			<section class="schoolmeal__days">
 				<schoolmeal-day :schoolmeal="schoolmeal" :current-day="day" :display-on-days="['monday']"></schoolmeal-day>
 				<schoolmeal-day :schoolmeal="schoolmeal" :current-day="day" :display-on-days="['tuesday', 'monday']"></schoolmeal-day>
@@ -16,7 +16,7 @@
 			<section class="schoolmeal__bulletins" v-if="schoolmeal.hasOwnProperty('bulletins')">
 				<p class="schoolmeal__bulletins-item" v-for="(bulletin, bulletinKey, i) in schoolmeal.bulletins" :key="bulletinKey">{{ bulletin.text }}</p>
 			</section>
-		</div>
+		</article>
 		<div class="itg-loader itg-loader--schoolmeal animated" v-else :class="[ { fadeOut: schoolmeal && schoolmeal.hasOwnProperty('days') }, { fadeIn: !schoolmeal } ]"></div>
 	</div>
 </template>
@@ -91,27 +91,39 @@ $card-bg-color: rgba(66, 66, 66, 1)
 	box-sizing: border-box
 	overflow: hidden
 
-.schoolmeal__title
-	font-size: 2rem
-	text-align: center
-	margin: 0
-	padding: 10px 10px 0 10px
-
-.schoolmeal__days
-	padding: 0 10px 10px 10px
-
-.schoolmeal__day:not(:last-child)
-	border-bottom: 2px solid white
-
-.schoolmeal__bulletins
-	padding: 7px
-	background-color: darken($card-bg-color, 5%)
-	box-shadow: inset 0 1px 1.5px 0 rgba(0, 0, 0, 0.12)
-
-	.schoolmeal__bulletins-item
-		font-size: 0.75rem
+	&__title
+		font-size: 2rem
 		text-align: center
 		margin: 0
+		padding: 10px 10px 0 10px
+
+	&__days
+		padding: 0 10px 10px 10px
+
+	&__day:not(:last-child)
+		border-bottom: 2px solid white
+
+	&__bulletins
+		padding: 7px
+		background-color: darken($card-bg-color, 5%)
+		box-shadow: inset 0 1px 1.5px 0 rgba(0, 0, 0, 0.12)
+
+		&-item
+			font-size: 0.75rem
+			text-align: center
+			margin: 0
+
+			&:first-child
+				padding-bottom: 5px
+
+			&:last-child
+				padding-bottom: 0
+
+			&:not(:first-child)
+				padding-top: 5px
+
+			&:not(:last-child)
+				border-bottom: 2px solid #424242
 
 .meal--closed
 	color: rgba(239, 83, 80, 1)

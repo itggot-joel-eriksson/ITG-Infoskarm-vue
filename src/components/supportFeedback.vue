@@ -4,8 +4,8 @@
 		<p class="support-feedback__body">
 			<a :href="emailHref">{{ email }}</a>
 		</p>
-		<div class="support-feedback__footer" v-if="status && status.up === false">
-			<p>ITG-Infoskarm-API har legat nere i {{ moment(moment(status.since).format("YYYY-MM-DD[T]HH:mm:ss[+0400]")).locale("sv").fromNow(true) }}.</p>
+		<div class="support-feedback__footer" v-if="status && status.up === false && moment().isBefore(status.since)">
+			<p>ITG-Infoskarm-API har legat nere i {{ moment(moment(status.since).format(`YYYY-MM-DD[T]HH:mm:ss[+${timeShift}]`)).locale("sv").fromNow(true) }}.</p>
 		</div>
 	</div>
 </template>
@@ -26,7 +26,7 @@ firebase.initializeApp(config, "support-feeback")
 
 const firebaseApp = firebase.app("support-feeback")
 
-const monitor = 779336471;
+const monitor = 779586323;
 
 const statusRef = firebaseApp.database().ref(`/status/monitors/${monitor}/current`);
 
@@ -43,6 +43,9 @@ export default {
 	computed: {
 		emailHref() {
 			return `mailto:${this.email}`
+		},
+		timeShift() {
+			return moment().isDST() ? "0400" : "0300"
 		},
 	},
 	firebase() {

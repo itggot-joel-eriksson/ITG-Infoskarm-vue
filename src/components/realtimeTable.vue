@@ -1,30 +1,34 @@
 <template>
-	<article class="stop">
+	<div class="stop">
 		<h1 v-show="stop.stop" v-if="stop.stop" class="stop__name animated" :class="[ { fadeOut: !stop.stop }, { fadeIn: stop.stop } ]">{{ stop.stop.shortName }}</h1>
 
 		<div class="itg-loader itg-loader--stop animated" v-show="!stop.stop" :class="[ { fadeOut: stop.stop }, { fadeIn: !stop.stop } ]"></div>
 
-		<div class="departure-board animated" v-show="stop.stop" :class="[ { fadeOut: !stop.stop }, { fadeIn: stop.stop } ]">
-			<div class="departure-board__header">
+		<article class="departure-board animated" v-show="stop.stop" :class="[ { fadeOut: !stop.stop }, { fadeIn: stop.stop } ]">
+			<section class="departure-board__header">
 				<div class="departure__line">{{ line }}</div>
 				<div class="departure__direction">{{ destination }}</div>
 				<div class="departure__track">{{ track }}</div>
 				<div class="departure__next">{{ next }}</div>
 				<div class="departure__thereafter">{{ thereafter }}</div>
-			</div>
-			<div class="departure-board__departures">
+			</section>
+			<section class="departure-board__departures">
 				<div class="departure-board__line-departures animated fadeIn" v-if="stop.departures">
 					<realtime-departure v-for="(departure, departureKey, i) in departures" :key="departureKey" :departure="departure[0]" :thereafter="departure[1]"></realtime-departure>
 				</div>
 				<div class="departure-board__line-departures animated fadeIn" v-else>
 					<realtime-departure :departure="noDepaturesFound"></realtime-departure>
 				</div>
-			</div>
-			<!--<div class="departure-board__messages animated" v-if="stop.stop.hasOwnProperty('messages')" :class="[ { zoomOutUp: !stop.stop.hasOwnProperty('messages') }, { zoomInDown: stop.stop.hasOwnProperty('messages') } ]">
+			</section>
+			<!-- <section class="departure-board__messages" v-if="stop && stop.stop && stop.stop.hasOwnProperty('messages')">
+				<realtime-table-message :message="vasttrafikMessage"></realtime-table-message>
 				<realtime-table-message v-for="(message, messageKey, i) in stop.stop.messages" :key="messageKey" :message="message"></realtime-table-message>
-			</div>-->
-		</div>
-	</article>
+			</section>
+			<section class="departure-board__messages">
+				<realtime-table-message :message="vasttrafikMessage"></realtime-table-message>
+			</section> -->
+		</article>
+	</div>
 </template>
 
 <script>
@@ -79,6 +83,9 @@
 						shortName: "-",
 					},
 					track: "-",
+				},
+				vasttrafikMessage: {
+					text: "Resedata från Västtrafik AB",
 				},
 			}
 		},
