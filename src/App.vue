@@ -15,6 +15,7 @@
 		<div class="column">
 			<datetime-view></datetime-view>
 			<schoolmeal-view school="it-gymnasiet-goteborg"></schoolmeal-view>
+			<campaign-eumeeting :showuntil="'2017-11-17 23:59:59'"></campaign-eumeeting>
 			<support-feedback :email="'support@itggot.info'"></support-feedback>
 		</div>
 
@@ -32,6 +33,7 @@ import schoolmealView from "./components/schoolmealView.vue"
 import supportFeedback from "./components/supportFeedback.vue"
 
 import campaignItgappen from "./components/campaigns/itgappen.vue"
+import campaignEumeeting from "./components/campaigns/eumeeting.vue"
 
 export default {
 	name: "app",
@@ -42,6 +44,7 @@ export default {
 		schoolmealView: schoolmealView,
 		supportFeedback: supportFeedback,
 		campaignItgappen: campaignItgappen,
+		campaignEumeeting: campaignEumeeting,
 	}
 }
 </script>
