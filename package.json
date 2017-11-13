@@ -1,7 +1,7 @@
 {
   "name": "itg-infoskarm-vue",
   "description": "ITG-Infoskarm made in Vue.js",
-  "version": "1.1.2",
+  "version": "1.1.4",
   "author": "Joel Ericsson <joel.eriksson@protonmail.com>",
   "private": true,
   "scripts": {
