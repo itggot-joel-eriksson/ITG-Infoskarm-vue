@@ -32,22 +32,32 @@
 					projectId: "591174060935ce40a59fb454",
 					writeKey: "E5E00B381C95084EA258948D5718D6EE5FE231EA38D470BA4C77C973C093227CF59B0605EBFBC1FA6CBE4E4ED973D932A41E80C4C3C231B9097784C2F076492A4A77B1CAD96846BE482C57C017629F8273654103DCB7054828AC99B27DDF135C",
 					onloadCallbacks:window.keenWebAutoCollector.onloadCallbacks
-				}), window.keenWebAutoCollector.loaded() 
+				});
+
+				window.keenWebAutoCollector.loaded();
 			}
 
 			function initKeenWebAutoCollector() {
-				window.keenWebAutoCollector.domReady() ? window.createKeenWebAutoCollector() : document.addEventListener("readystatechange", function() {
-					window.keenWebAutoCollector.domReady() && window.createKeenWebAutoCollector()
-				})
+				if (window.navigator.doNotTrack == "1" || window.doNotTrack == "1") {
+					return;
+				}
+				
+				if (window.keenWebAutoCollector.domReady()) {
+					window.createKeenWebAutoCollector();
+				} else {
+					document.addEventListener("readystatechange", function() {
+						window.keenWebAutoCollector.domReady() && window.createKeenWebAutoCollector();
+					});
+				}
 			}
 
 			window.keenWebAutoCollector = {
 				onloadCallbacks: [],
 				onload: function(a) {
-					this.onloadCallbacks.push(a)
+					this.onloadCallbacks.push(a);
 				},
 				domReady: function() {
-					return ["ready", "complete"].indexOf(document.readyState) > -1
+					return ["ready", "complete"].indexOf(document.readyState) > -1;
 				}
 			};
 		</script>

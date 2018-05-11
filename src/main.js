@@ -2,7 +2,8 @@ import Vue from "vue"
 import App from "./App.vue"
 import VueFire from "vuefire"
 import screenfull from "screenfull"
-import * as firebase from "firebase"
+import firebase from "firebase/app"
+import "firebase/database"
 
 Vue.use(VueFire)
 
