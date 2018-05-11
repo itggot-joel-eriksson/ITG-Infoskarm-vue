@@ -1,28 +1,25 @@
 <template>
-	<img v-if="camera && camera.hasOwnProperty('image') && windowWidth >= 1000" :src="camera.image" class="camera-image animated" :class="[ { fadeOut: !camera }, { fadeIn: camera } ]">
+	<img
+		class="camera-image animated"
+		draggable="false"
+		v-if="camera && camera.hasOwnProperty('image') && windowWidth >= 1000"
+		:src="camera.image"
+		:class="{
+			fadeOut: !camera,
+			fadeIn: camera,
+		}"
+	/>
 </template>
 
 <script>
-import firebase from "firebase/app"
-import "firebase/database"
-
-const config = {
-	apiKey: "AIzaSyCvbaplVa5dSNxHzTSJd1y1iiKxCmceLqY",
-	authDomain: "vasttrafik-api-159cc.firebaseapp.com",
-	databaseURL: "https://vasttrafik-api-159cc.firebaseio.com"
-}
-
-firebase.initializeApp(config, "gbgcamera")
-
-const firebaseApp = firebase.app("gbgcamera")
-
-const gbgcamerasRef = firebaseApp.database().ref("gbgcamera")
-
 export default {
 	name: "cameraView",
-	props: [
-		"camera-id",
-	],
+	props: {
+		cameraId: {
+			type: String,
+			required: true,
+		},
+	},
 	data() {
 		return {
 			windowWidth: window.innerWidth,
@@ -43,7 +40,7 @@ export default {
 	firebase() {
 		return {
 			camera: {
-				source: gbgcamerasRef.child(this.cameraId),
+				source: this.$firebase.database().ref("gbgcamera").child(this.cameraId),
 				asObject: true,
 			}
 		}
@@ -51,13 +48,14 @@ export default {
 }
 </script>
 
-<style lang="sass">
-.camera-image
-	background-color: #424242
-	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 5px 0 rgba(0, 0, 0, 0.23)
-	border-radius: 4px
-	box-sizing: border-box
-	overflow: hidden
-	width: calc(100% - 20px)
-	margin: 10px 10px 0 10px
+<style lang="scss">
+.camera-image {
+	background-color: #424242;
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 5px 0 rgba(0, 0, 0, 0.23);
+	border-radius: 4px;
+	box-sizing: border-box;
+	overflow: hidden;
+	width: calc(100% - 20px);
+	margin: 10px 10px 0 10px;
+}
 </style>

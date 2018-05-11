@@ -14,9 +14,15 @@ import moment from "moment"
 
 export default {
 	name: "campaignNorddagen",
-	props: [
-		"showuntil",
-	],
+	props: {
+		showuntil: {
+			required: true,
+			type: String,
+			validator(value) {
+				return moment(value).isValid()
+			},
+		},
+	},
 	data() {
 		return {
 			shown: false,
@@ -32,19 +38,19 @@ export default {
 }
 </script>
 
-<style lang="sass" scoped>
-.campaign--norddagen
-	width: calc(100% - 21px)
-	margin: 10px 10px 0 10px
-	box-sizing: border-box
-	border-radius: 4px
-	overflow: hidden
-	padding-bottom: -5px
+<style lang="scss" scoped>
+.campaign--norddagen {
+	width: calc(100% - 21px);
+	margin: 10px 10px 0 10px;
+	box-sizing: border-box;
+	border-radius: 4px;
+	overflow: hidden;
+	padding-bottom: -5px;
 
-	video
-		width: 100%
-		border-radius: 4px
-		box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 5px 0 rgba(0, 0, 0, 0.23)
-		
-
- </style>
+	video {
+		width: 100%;
+		border-radius: 4px;
+		box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 5px 0 rgba(0, 0, 0, 0.23);
+	}
+}
+</style>

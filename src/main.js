@@ -2,8 +2,15 @@ import Vue from "vue"
 import App from "./App.vue"
 import VueFire from "vuefire"
 import screenfull from "screenfull"
+import * as firebase from "firebase"
 
 Vue.use(VueFire)
+
+Vue.prototype.$firebase = firebase.initializeApp({
+	apiKey: "AIzaSyCvbaplVa5dSNxHzTSJd1y1iiKxCmceLqY",
+	authDomain: "vasttrafik-api-159cc.firebaseapp.com",
+	databaseURL: "https://vasttrafik-api-159cc.firebaseio.com"
+})
 
 const vm = new Vue({
 	el: "#app",
