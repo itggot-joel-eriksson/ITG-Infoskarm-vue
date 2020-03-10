@@ -146,7 +146,7 @@
     "symbol-observable": "1.0.1",
     "recast": "0.14.7",
     "ast-types": "0.11.3",
-    "async": "2.6.0",
+    "async": "2.6.3",
     "globby": "8.0.1",
     "vinyl": "2.1.0",
     "clone-stats": "1.0.0",
