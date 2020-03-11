@@ -151,7 +151,7 @@
     "vinyl": "2.1.0",
     "clone-stats": "1.0.0",
     "replace-ext": "1.0.0",
-    "array-flatten": "2.1.1",
+    "array-flatten": "2.1.2",
     "depd": "1.1.2",
     "setprototypeof": "1.1.0",
     "statuses": "1.5.0",
