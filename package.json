@@ -94,7 +94,7 @@
     "query-string": "5.1.1",
     "sort-keys": "2.0.0",
     "colors": "1.2.5",
-    "esprima": "4.0.0",
+    "esprima": "4.0.1",
     "has-flag": "3.0.0",
     "read-pkg-up": "3.0.0",
     "read-pkg": "3.0.0",
